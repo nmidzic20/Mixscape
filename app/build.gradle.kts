@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "hr.illuminative.mixscape"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "hr.illuminative.mixscape"
@@ -66,4 +66,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    val nav_version = "2.7.4"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("io.coil-kt:coil-gif:2.4.0")
 }
