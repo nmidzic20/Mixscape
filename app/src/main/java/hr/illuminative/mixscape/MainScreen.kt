@@ -33,12 +33,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import hr.illuminative.mixscape.favorites.FavoritesScreen
-import hr.illuminative.mixscape.home.HomeScreen
 import hr.illuminative.mixscape.navigation.COCKTAIL_ID_KEY
 import hr.illuminative.mixscape.navigation.CocktailDetailDestination
 import hr.illuminative.mixscape.navigation.NavigationItem
+import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsRoute
+import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsViewModel
 import hr.illuminative.mixscape.ui.composables.TopAppBarLogoTitle
+import hr.illuminative.mixscape.ui.favorites.FavoritesScreen
+import hr.illuminative.mixscape.ui.home.HomeRoute
+import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -100,14 +104,13 @@ fun MainScreen() {
                 modifier = Modifier.padding(padding),
             ) {
                 composable(NavigationItem.HomeDestination.route) {
-                    HomeScreen()
-                /*HomeRoute(
+                    HomeRoute(
                         onNavigateToCocktailDetails = { cocktailId ->
                             val cocktailRoute = CocktailDetailDestination.createNavigationRoute(cocktailId)
                             navController.navigate(cocktailRoute)
                         },
-                        viewModel = getViewModel()
-                    )*/
+                        viewModel = getViewModel(),
+                    )
                 }
                 composable(NavigationItem.FavoritesDestination.route) {
                     FavoritesScreen()
@@ -123,13 +126,13 @@ fun MainScreen() {
                     route = CocktailDetailDestination.route,
                     arguments = listOf(navArgument(COCKTAIL_ID_KEY) { type = NavType.IntType }),
                 ) {
-                    /*val selectedCocktailId = it.arguments?.getInt(COCKTAIL_ID_KEY) ?: throw IllegalStateException("Cocktail ID is null")
+                    val selectedCocktailId = it.arguments?.getInt(COCKTAIL_ID_KEY) ?: throw IllegalStateException("Cocktail ID is null")
                     val cocktailDetailsViewModel: CocktailDetailsViewModel = getViewModel(parameters = {
                         parametersOf(selectedCocktailId)
                     })
                     CocktailDetailsRoute(
-                        viewModel = cocktailDetailsViewModel
-                    )*/
+                        viewModel = cocktailDetailsViewModel,
+                    )
                 }
             }
         }

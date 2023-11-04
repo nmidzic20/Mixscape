@@ -19,58 +19,58 @@ data class ApiCocktailDetails(
     @SerialName("strDrink")
     val name: String,
     @SerialName("strIngredient1")
-    val ingredient1: String,
+    val ingredient1: String?,
     @SerialName("strIngredient2")
-    val ingredient2: String,
+    val ingredient2: String?,
     @SerialName("strIngredient3")
-    val ingredient3: String,
+    val ingredient3: String?,
     @SerialName("strIngredient4")
-    val ingredient4: String,
+    val ingredient4: String?,
     @SerialName("strIngredient5")
-    val ingredient5: String,
+    val ingredient5: String?,
     @SerialName("strIngredient6")
-    val ingredient6: String,
+    val ingredient6: String?,
     @SerialName("strIngredient7")
-    val ingredient7: String,
+    val ingredient7: String?,
     @SerialName("strIngredient8")
-    val ingredient8: String,
+    val ingredient8: String?,
     @SerialName("strIngredient9")
-    val ingredient9: String,
+    val ingredient9: String?,
     @SerialName("strIngredient10")
-    val ingredient10: String,
+    val ingredient10: String?,
     @SerialName("strIngredient11")
-    val ingredient11: String,
+    val ingredient11: String?,
     @SerialName("strIngredient12")
-    val ingredient12: String,
+    val ingredient12: String?,
     @SerialName("strIngredient13")
-    val ingredient13: String,
+    val ingredient13: String?,
     @SerialName("strIngredient14")
-    val ingredient14: String,
+    val ingredient14: String?,
     @SerialName("strIngredient15")
-    val ingredient15: String,
+    val ingredient15: String?,
     @SerialName("strInstructions")
-    val preparationInstructions: String,
+    val preparationInstructions: String?,
     @SerialName("strDrinkThumb")
-    val imgPath: String,
+    val imgPath: String?,
     @SerialName("strCategory")
-    val category: String,
+    val category: String?,
     @SerialName("strAlcoholic")
-    val alcoholic: String,
+    val alcoholic: String?,
     @SerialName("strGlass")
-    val glassType: String,
+    val glassType: String?,
     @SerialName("strIBA")
-    val iba: String,
+    val iba: String?,
 ) {
     fun toCocktailDetails(isFavorite: Boolean) = CocktailDetails(
         id = id.toInt(),
         name = name,
         ingredients = listOfNotNull(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14, ingredient15),
-        preparationInstructions = preparationInstructions,
+        preparationInstructions = preparationInstructions ?: "Not provided",
         imageUrl = "$imgPath",
         isAlcoholic = "Alcoholic" == alcoholic,
-        category = category,
-        glassType = glassType,
-        iba = iba,
+        category = category ?: "Not provided",
+        glassType = glassType ?: "Not provided",
+        iba = iba ?: "Not provided",
         isFavorite = isFavorite,
     )
 }

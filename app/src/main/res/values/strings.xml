@@ -3,4 +3,6 @@
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
     <string name="back">Back</string>
+    <string name="search_cocktails">Search cocktails</string>
+    <string name="preparation_instructions">Preparation instructions</string>
 </resources>

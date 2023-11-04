@@ -2,9 +2,11 @@ package hr.illuminative.mixscape
 
 import android.app.Application
 import android.util.Log
-import hr.illuminative.mixscape.data.di.networkModule
 import hr.illuminative.mixscape.data.di.dataModule
 import hr.illuminative.mixscape.data.di.databaseModule
+import hr.illuminative.mixscape.data.di.networkModule
+import hr.illuminative.mixscape.ui.cocktail_details.di.cocktailDetailsModule
+import hr.illuminative.mixscape.ui.home.di.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -18,6 +20,8 @@ class Mixscape : Application() {
                 databaseModule,
                 dataModule,
                 networkModule,
+                homeModule,
+                cocktailDetailsModule
             )
         }
 
