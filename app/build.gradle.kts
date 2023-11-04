@@ -78,4 +78,16 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
+    val ktor_version = "2.3.5"
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-android:$ktor_version")
+    implementation("io.ktor:ktor-client-logging:$ktor_version")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+
+    val koin_version = "3.5.0"
+    val koin_compose_version = "3.5.0"
+    implementation("io.insert-koin:koin-android:$koin_version")
+    implementation("io.insert-koin:koin-androidx-compose:$koin_compose_version")
+
 }
