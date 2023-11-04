@@ -27,7 +27,7 @@ fun SpinningLogo() {
         .build()
     Image(
         painter = rememberAsyncImagePainter(
-            ImageRequest.Builder(context).data(data = R.drawable.icon_white).apply(block = {
+            ImageRequest.Builder(context).data(data = R.drawable.logo_gif).apply(block = {
                 size(150, 150)
             }).build(),
             imageLoader = imageLoader,

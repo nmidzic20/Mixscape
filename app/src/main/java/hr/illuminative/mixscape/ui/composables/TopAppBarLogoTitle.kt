@@ -39,11 +39,11 @@ fun TopAppBarLogoTitle() {
                     .width(boxWidth),
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.logo_text_white),
+                    painter = painterResource(id = R.drawable.logo_white),
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .height(30.dp)
+                        .height(50.dp)
                         .padding(start = 40.dp),
                 )
             }
