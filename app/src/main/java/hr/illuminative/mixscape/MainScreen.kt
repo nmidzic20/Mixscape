@@ -20,6 +20,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,7 +40,9 @@ import hr.illuminative.mixscape.navigation.NavigationItem
 import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsRoute
 import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsViewModel
 import hr.illuminative.mixscape.ui.composables.TopAppBarLogoTitle
+import hr.illuminative.mixscape.ui.favorites.FavoritesRoute
 import hr.illuminative.mixscape.ui.favorites.FavoritesScreen
+import hr.illuminative.mixscape.ui.favorites.FavoritesViewModel
 import hr.illuminative.mixscape.ui.home.HomeRoute
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -113,14 +116,13 @@ fun MainScreen() {
                     )
                 }
                 composable(NavigationItem.FavoritesDestination.route) {
-                    FavoritesScreen()
-                /*FavoritesRoute(
+                    FavoritesRoute(
                         onNavigateToCocktailDetails = { cocktailId ->
                             val cocktailRoute = CocktailDetailDestination.createNavigationRoute(cocktailId)
                             navController.navigate(cocktailRoute)
                         },
                         viewModel = getViewModel<FavoritesViewModel>()
-                    )*/
+                    )
                 }
                 composable(
                     route = CocktailDetailDestination.route,
@@ -165,6 +167,7 @@ private fun BackIcon(
         imageVector = Icons.Default.ArrowBack,
         stringResource(R.string.back),
         modifier = modifier.clickable { onBackClick() },
+        tint = Color.White
     )
 }
 

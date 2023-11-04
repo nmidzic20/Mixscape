@@ -69,7 +69,7 @@ fun CategoryComponent(
             },
         ) {
             Text(
-                text = stringResource(id = R.string.favorites),
+                text = stringResource(id = R.string.search_cocktails),
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small),

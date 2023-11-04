@@ -5,4 +5,10 @@
     <string name="back">Back</string>
     <string name="search_cocktails">Search cocktails</string>
     <string name="preparation_instructions">Preparation instructions</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="iba">IBA</string>
+    <string name="category">Category</string>
+    <string name="glass_type">Glass type</string>
+    <string name="alcoholic">Alcoholic!</string>
+    <string name="non_alcoholic">Non-alcoholic</string>
 </resources>
