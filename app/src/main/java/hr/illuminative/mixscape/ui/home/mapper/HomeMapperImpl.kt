@@ -7,8 +7,12 @@ import hr.illuminative.mixscape.ui.home.HomeViewState
 
 class HomeScreenMapperImpl : HomeScreenMapper {
     override fun toHomeViewState(
-        cocktails: List<Cocktail>,
+        cocktails: List<Cocktail>?,
     ): HomeViewState {
+        if (cocktails == null) {
+            return HomeViewState(emptyList())
+        }
+
         val _cocktails: List<HomeCocktailViewState> = cocktails.map { cocktail ->
             HomeCocktailViewState(
                 id = cocktail.id.toString(),

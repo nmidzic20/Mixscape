@@ -18,4 +18,20 @@ class CocktailDetailsMapperImpl : CocktailDetailsMapper {
             name = cocktailDetails.name,
         )
     }
+        /*when (cocktailDetails) {
+            null -> CocktailDetailsViewState.EMPTY
+            else -> CocktailDetailsViewState(
+                id = cocktailDetails.id,
+                imageUrl = cocktailDetails.imageUrl,
+                isFavorite = cocktailDetails.isFavorite,
+                category = cocktailDetails.category,
+                glassType = cocktailDetails.glassType,
+                iba = cocktailDetails.iba,
+                isAlcoholic = cocktailDetails.isAlcoholic,
+                ingredients = cocktailDetails.ingredients,
+                preparationInstructions = cocktailDetails.preparationInstructions,
+                name = cocktailDetails.name,
+            )
+        }*/
+
 }

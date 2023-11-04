@@ -4,5 +4,5 @@ import hr.illuminative.mixscape.model.CocktailDetails
 import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsViewState
 
 interface CocktailDetailsMapper {
-    fun toCocktailDetailsViewState(movieDetails: CocktailDetails): CocktailDetailsViewState
+    fun toCocktailDetailsViewState(cocktailDetails: CocktailDetails): CocktailDetailsViewState
 }

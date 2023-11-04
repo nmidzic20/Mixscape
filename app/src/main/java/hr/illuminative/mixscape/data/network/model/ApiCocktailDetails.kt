@@ -1,10 +1,8 @@
 package hr.illuminative.mixscape.data.network.model
 
-import hr.illuminative.mixscape.model.Cocktail
 import hr.illuminative.mixscape.model.CocktailDetails
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
 
 @Serializable
 data class CocktailDetailsResponse(

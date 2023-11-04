@@ -5,6 +5,6 @@ import hr.illuminative.mixscape.ui.home.HomeViewState
 
 interface HomeScreenMapper {
     fun toHomeViewState(
-        cocktails: List<Cocktail>,
+        cocktails: List<Cocktail>?,
     ): HomeViewState
 }

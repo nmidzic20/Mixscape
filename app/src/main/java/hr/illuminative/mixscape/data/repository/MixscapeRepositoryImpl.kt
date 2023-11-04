@@ -8,7 +8,7 @@ import hr.illuminative.mixscape.model.CocktailDetails
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.shareIn
 class MixscapeRepositoryImpl(
     private val cocktailService: CocktailService,
     private val cocktailDao: FavoriteCocktailDAO,
-    private val bgDispatcher: CoroutineDispatcher
+    private val bgDispatcher: CoroutineDispatcher,
 ) : MixscapeRepository {
 
     private val favorites = cocktailDao.favorites().map {
@@ -39,13 +39,13 @@ class MixscapeRepositoryImpl(
         started = SharingStarted.WhileSubscribed(1000L),
         replay = 1,
     )
-    override fun cocktails(cocktailName: String): Flow<List<Cocktail>> = flow {
+    override fun cocktails(cocktailName: String): SharedFlow<List<Cocktail>?> = flow {
         val cocktailResponse = cocktailService.fetchCocktailsByName(cocktailName)
         emit(cocktailResponse.cocktails)
     }.flatMapLatest { apiCocktails ->
         cocktailDao.favorites()
             .map { favoriteCocktails ->
-                apiCocktails.map { apiCocktail ->
+                apiCocktails?.map { apiCocktail ->
                     apiCocktail.toCocktail(isFavorite = favoriteCocktails.any { it.id == apiCocktail.id.toInt() })
                 }
             }
@@ -79,9 +79,10 @@ class MixscapeRepositoryImpl(
 
     override suspend fun toggleFavorite(cocktailId: String) {
         val favoriteCocktails = favorites.first()
-        if (favoriteCocktails.none { it.id == cocktailId.toInt() })
+        if (favoriteCocktails.none { it.id == cocktailId.toInt() }) {
             addCocktailToFavorites(cocktailId)
-        else
+        } else {
             removeCocktailFromFavorites(cocktailId)
+        }
     }
 }

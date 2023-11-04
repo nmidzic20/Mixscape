@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -283,16 +284,3 @@ fun Ingredient(
     }
 }
 
-@Preview
-@Composable
-fun CocktailDetailsScreenPreview() {
-    val cocktailDetailsViewModel: CocktailDetailsViewModel = getViewModel(parameters = {
-        parametersOf(11007)
-    })
-    val cocktailDetailsViewState: CocktailDetailsViewState by cocktailDetailsViewModel.cocktailDetailsViewState.collectAsState()
-
-    CocktailDetailsScreen(
-        cocktailDetailsViewState,
-        {},
-    )
-}
