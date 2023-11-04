@@ -20,7 +20,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -173,7 +172,7 @@ fun BottomNavigationBar(
     currentDestination: NavDestination?,
 ) {
     NavigationBar(
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.tertiary,
     ) {
         destinations.forEachIndexed { _, destination ->
             val selected = currentDestination?.hierarchy?.any { it.route == destination.route } == true
