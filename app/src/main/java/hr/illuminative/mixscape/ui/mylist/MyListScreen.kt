@@ -23,6 +23,7 @@ import hr.illuminative.mixscape.R
 import hr.illuminative.mixscape.model.Cocktail
 import hr.illuminative.mixscape.ui.composables.CocktailCard
 import hr.illuminative.mixscape.ui.composables.CocktailDialog
+import hr.illuminative.mixscape.ui.composables.MyCocktailCard
 import hr.illuminative.mixscape.ui.theme.spacing
 
 @Composable
@@ -36,14 +37,8 @@ fun MyListRoute(
         myListViewState = myListViewState,
         onCocktailCardClick = onNavigateToCocktailDetails,
         onFavoriteClick = viewModel::onFavoriteClick,
-        onAddClick = viewModel::onAddClick,
+        onRemoveClick = viewModel::onDeleteClick,
     )
-
-    /*CocktailDialog(
-        isVisible = viewModel.isAddCocktailDialogVisible.value,
-        onDismiss = { viewModel.onCancelAddCocktail() },
-        onSave = { cocktail -> viewModel.onSaveAddCocktail(cocktail) }
-    )*/
 }
 
 @Composable
@@ -51,7 +46,7 @@ fun MyListScreen(
     myListViewState: MyListViewState,
     onCocktailCardClick: (Int) -> Unit,
     onFavoriteClick: (Int) -> Unit,
-    onAddClick: () -> Unit,
+    onRemoveClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val myListCocktails = myListViewState.myListViewStateList.toMutableList()
@@ -79,25 +74,17 @@ fun MyListScreen(
                 cocktail.id
             }
         ) { index, cocktail ->
-            CocktailCard(
+            MyCocktailCard(
                 cocktailCardViewState = myListCocktails[index].cocktailCardViewState,
                 onClick = { onCocktailCardClick(cocktail.id) },
                 onFavoriteClick = { onFavoriteClick(cocktail.id) },
+                onRemoveClick = { onRemoveClick(cocktail.id) },
                 modifier = Modifier
                     .height(179.dp)
                     .padding(MaterialTheme.spacing.small)
             )
         }
 
-        /*item {
-            FloatingActionButton(
-                onClick = { onAddClick() },
-                modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
-                    .padding(end = 16.dp, bottom = 16.dp)
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Cocktail")
-            }
-        }*/
     }
 }
+

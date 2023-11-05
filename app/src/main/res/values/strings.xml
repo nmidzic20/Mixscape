@@ -12,4 +12,5 @@
     <string name="alcoholic">Alcoholic!</string>
     <string name="non_alcoholic">Non-alcoholic</string>
     <string name="my_list">My List</string>
+    <string name="delete">Delete</string>
 </resources>

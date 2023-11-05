@@ -58,5 +58,6 @@ class MyListViewModel(
     }
 
     fun onDeleteClick(cocktailId: Int) {
+        viewModelScope.launch { mixscapeRepository.removeCocktailFromMyList(cocktailId.toString()) }
     }
 }
