@@ -91,6 +91,22 @@ class MixscapeRepositoryImpl(
             }
     }.flowOn(bgDispatcher)
 
+    override fun myCocktailDetails(cocktailId: String): Flow<Cocktail> = myCocktailDao.myCocktail(cocktailId.toInt())
+        .flatMapLatest { dbMyCocktail ->
+            favoriteCocktailDao.favorites()
+                .map { favoriteCocktails ->
+
+                    Cocktail(
+                        id = dbMyCocktail.id,
+                        imageUrl = dbMyCocktail.imageUrl,
+                        name = dbMyCocktail.name,
+                        preparationInstructions = dbMyCocktail.preparationInstructions,
+                        ingredients = listOf(dbMyCocktail.ingredients),
+                        isFavorite = favoriteCocktails.any { it.id == dbMyCocktail.id },
+                    )
+                }
+        }.flowOn(bgDispatcher)
+
     override fun favoriteCocktails(): Flow<List<Cocktail>> = favorites
 
     override suspend fun addCocktailToFavorites(cocktailId: String) {

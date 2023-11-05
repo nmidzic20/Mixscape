@@ -13,6 +13,9 @@ interface MyCocktailDAO {
     @Query("SELECT * FROM my_cocktails")
     fun myCocktails(): Flow<List<DbMyCocktail>>
 
+    @Query("SELECT * FROM my_cocktails WHERE id = :cocktailId")
+    fun myCocktail(cocktailId: Int): Flow<DbMyCocktail>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMyCocktail(cocktail: DbMyCocktail)
 

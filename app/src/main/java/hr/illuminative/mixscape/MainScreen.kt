@@ -38,6 +38,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import hr.illuminative.mixscape.navigation.COCKTAIL_ID_KEY
 import hr.illuminative.mixscape.navigation.CocktailDetailDestination
+import hr.illuminative.mixscape.navigation.MY_COCKTAIL_ID_KEY
+import hr.illuminative.mixscape.navigation.MyCocktailDetailDestination
 import hr.illuminative.mixscape.navigation.NavigationItem
 import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsRoute
 import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsViewModel
@@ -46,15 +48,20 @@ import hr.illuminative.mixscape.ui.composables.TopAppBarLogoTitle
 import hr.illuminative.mixscape.ui.favorites.FavoritesRoute
 import hr.illuminative.mixscape.ui.favorites.FavoritesViewModel
 import hr.illuminative.mixscape.ui.home.HomeRoute
+import hr.illuminative.mixscape.ui.mycocktaildetails.MyCocktailDetailsRoute
+import hr.illuminative.mixscape.ui.mycocktaildetails.MyCocktailDetailsViewModel
 import hr.illuminative.mixscape.ui.mylist.MyListRoute
 import hr.illuminative.mixscape.ui.mylist.MyListViewModel
 import hr.illuminative.mixscape.ui.theme.spacing
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
+import java.io.File
+import java.util.concurrent.ExecutorService
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(outputDirectory: File,
+               cameraExecutor: ExecutorService,) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -161,7 +168,7 @@ fun MainScreen() {
                 composable(NavigationItem.MyListDestination.route) {
                     MyListRoute(
                         onNavigateToCocktailDetails = { cocktailId ->
-                            val cocktailRoute = CocktailDetailDestination.createNavigationRoute(cocktailId)
+                            val cocktailRoute = MyCocktailDetailDestination.createNavigationRoute(cocktailId)
                             navController.navigate(cocktailRoute)
                         },
                         viewModel = getViewModel<MyListViewModel>(),
@@ -179,12 +186,26 @@ fun MainScreen() {
                         viewModel = cocktailDetailsViewModel,
                     )
                 }
+                composable(
+                    route = MyCocktailDetailDestination.route,
+                    arguments = listOf(navArgument(MY_COCKTAIL_ID_KEY) { type = NavType.IntType }),
+                ) {
+                    val selectedCocktailId = it.arguments?.getInt(MY_COCKTAIL_ID_KEY) ?: throw IllegalStateException("Cocktail ID is null")
+                    val cocktailDetailsViewModel: MyCocktailDetailsViewModel = getViewModel(parameters = {
+                        parametersOf(selectedCocktailId)
+                    })
+                    MyCocktailDetailsRoute(
+                        viewModel = cocktailDetailsViewModel,
+                    )
+                }
             }
 
             CocktailDialog(
                 isVisible = myListViewModel.isAddCocktailDialogVisible.value,
                 onDismiss = { myListViewModel.onCancelAddCocktail() },
                 onSave = { cocktail -> myListViewModel.onSaveAddCocktail(cocktail) },
+                outputDirectory,
+                cameraExecutor,
             )
         }
     }
@@ -252,8 +273,4 @@ fun BottomNavigationBar(
     }
 }
 
-@Preview
-@Composable
-fun MainScreenPreview() {
-    MainScreen()
-}
+
