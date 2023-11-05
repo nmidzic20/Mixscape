@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -60,8 +59,10 @@ import java.util.concurrent.ExecutorService
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(outputDirectory: File,
-               cameraExecutor: ExecutorService,) {
+fun MainScreen(
+    outputDirectory: File,
+    cameraExecutor: ExecutorService,
+) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -69,6 +70,9 @@ fun MainScreen(outputDirectory: File,
         derivedStateOf {
             when (navBackStackEntry?.destination?.route) {
                 CocktailDetailDestination.route -> {
+                    false
+                }
+                MyCocktailDetailDestination.route -> {
                     false
                 }
                 else -> {
@@ -272,5 +276,3 @@ fun BottomNavigationBar(
         }
     }
 }
-
-

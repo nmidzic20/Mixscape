@@ -79,13 +79,13 @@ class MixscapeRepositoryImpl(
         replay = 1,
     )
 
-    override fun cocktailDetails(cocktailId: String): Flow<CocktailDetails> = flow {
+    override fun cocktailDetails(cocktailId: String): Flow<CocktailDetails?> = flow {
         val cocktailResponse = cocktailService.fetchCocktailDetails(cocktailId)
-        emit(cocktailResponse.cocktails.first())
+        emit(cocktailResponse.cocktails?.first())
     }.flatMapLatest { apiCocktailDetails ->
         favoriteCocktailDao.favorites()
             .map { favoriteCocktails ->
-                apiCocktailDetails.toCocktailDetails(
+                apiCocktailDetails?.toCocktailDetails(
                     isFavorite = favoriteCocktails.any { it.id == apiCocktailDetails.id.toInt() },
                 )
             }
@@ -111,7 +111,8 @@ class MixscapeRepositoryImpl(
 
     override suspend fun addCocktailToFavorites(cocktailId: String) {
         val cocktailDetails = cocktailDetails(cocktailId).first()
-        val posterUrl = cocktailDetails.imageUrl
+        val myCocktailDetails = myCocktailDetails(cocktailId).first()
+        val posterUrl = cocktailDetails?.imageUrl ?: myCocktailDetails?.imageUrl ?: ""
         favoriteCocktailDao.insertFavoriteCocktail(DbFavoriteCocktail(cocktailId.toInt(), posterUrl))
     }
 

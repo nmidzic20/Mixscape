@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MixscapeRepository {
     fun cocktails(cocktailName: String): Flow<List<Cocktail>?>
-    fun cocktailDetails(cocktailId: String): Flow<CocktailDetails>
+    fun cocktailDetails(cocktailId: String): Flow<CocktailDetails?>
     fun myCocktailDetails(cocktailId: String): Flow<Cocktail>
     fun favoriteCocktails(): Flow<List<Cocktail>>
     suspend fun addCocktailToFavorites(cocktailId: String)
