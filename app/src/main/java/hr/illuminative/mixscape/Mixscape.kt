@@ -8,6 +8,7 @@ import hr.illuminative.mixscape.data.di.networkModule
 import hr.illuminative.mixscape.ui.cocktaildetails.di.cocktailDetailsModule
 import hr.illuminative.mixscape.ui.favorites.di.favoritesModule
 import hr.illuminative.mixscape.ui.home.di.homeModule
+import hr.illuminative.mixscape.ui.mylist.di.myListModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -23,7 +24,8 @@ class Mixscape : Application() {
                 networkModule,
                 homeModule,
                 cocktailDetailsModule,
-                favoritesModule
+                favoritesModule,
+                myListModule
             )
         }
 

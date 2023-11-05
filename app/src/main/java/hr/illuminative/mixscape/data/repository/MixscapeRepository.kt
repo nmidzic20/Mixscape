@@ -11,4 +11,9 @@ interface MixscapeRepository {
     suspend fun addCocktailToFavorites(cocktailId: String)
     suspend fun removeCocktailFromFavorites(cocktailId: String)
     suspend fun toggleFavorite(cocktailId: String)
+
+    fun myListCocktails(): Flow<List<Cocktail>>
+    suspend fun addCocktailToMyList(cocktail: Cocktail)
+    suspend fun removeCocktailFromMyList(cocktailId: String)
+    suspend fun updateMyCocktail(cocktail: Cocktail)
 }

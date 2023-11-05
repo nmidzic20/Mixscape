@@ -1,4 +1,8 @@
 package hr.illuminative.mixscape.ui.mylist.mapper
 
-class MyListMapper {
+import hr.illuminative.mixscape.model.Cocktail
+import hr.illuminative.mixscape.ui.mylist.MyListViewState
+
+interface MyListMapper {
+    fun toMyListViewState(myListCocktails: List<Cocktail>): MyListViewState
 }

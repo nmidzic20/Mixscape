@@ -1,7 +1,9 @@
 package hr.illuminative.mixscape.data.repository
 
 import hr.illuminative.mixscape.data.database.DbFavoriteCocktail
+import hr.illuminative.mixscape.data.database.DbMyCocktail
 import hr.illuminative.mixscape.data.database.FavoriteCocktailDAO
+import hr.illuminative.mixscape.data.database.MyCocktailDAO
 import hr.illuminative.mixscape.data.network.CocktailService
 import hr.illuminative.mixscape.model.Cocktail
 import hr.illuminative.mixscape.model.CocktailDetails
@@ -19,11 +21,12 @@ import kotlinx.coroutines.flow.shareIn
 
 class MixscapeRepositoryImpl(
     private val cocktailService: CocktailService,
-    private val cocktailDao: FavoriteCocktailDAO,
+    private val favoriteCocktailDao: FavoriteCocktailDAO,
+    private val myCocktailDao: MyCocktailDAO,
     private val bgDispatcher: CoroutineDispatcher,
 ) : MixscapeRepository {
 
-    private val favorites = cocktailDao.favorites().map {
+    private val favorites = favoriteCocktailDao.favorites().map {
         it.map { dbFavoriteCocktail ->
             Cocktail(
                 id = dbFavoriteCocktail.id,
@@ -39,11 +42,32 @@ class MixscapeRepositoryImpl(
         started = SharingStarted.WhileSubscribed(1000L),
         replay = 1,
     )
+
+    private val myCocktails = myCocktailDao.myCocktails().flatMapLatest { dbMyCocktailList ->
+        favoriteCocktailDao.favorites()
+            .map { favoriteCocktails ->
+                dbMyCocktailList.map { dbMyCocktail ->
+                    Cocktail(
+                        id = dbMyCocktail.id,
+                        imageUrl = dbMyCocktail.imageUrl,
+                        name = dbMyCocktail.name,
+                        preparationInstructions = dbMyCocktail.preparationInstructions,
+                        ingredients = dbMyCocktail.ingredients,
+                        isFavorite = favoriteCocktails.any { it.id == dbMyCocktail.id },
+                    )
+                }
+            }
+    }.shareIn(
+        scope = CoroutineScope(bgDispatcher),
+        started = SharingStarted.WhileSubscribed(1000L),
+        replay = 1,
+    )
+
     override fun cocktails(cocktailName: String): SharedFlow<List<Cocktail>?> = flow {
         val cocktailResponse = cocktailService.fetchCocktailsByName(cocktailName)
         emit(cocktailResponse.cocktails)
     }.flatMapLatest { apiCocktails ->
-        cocktailDao.favorites()
+        favoriteCocktailDao.favorites()
             .map { favoriteCocktails ->
                 apiCocktails?.map { apiCocktail ->
                     apiCocktail.toCocktail(isFavorite = favoriteCocktails.any { it.id == apiCocktail.id.toInt() })
@@ -59,7 +83,7 @@ class MixscapeRepositoryImpl(
         val cocktailResponse = cocktailService.fetchCocktailDetails(cocktailId)
         emit(cocktailResponse.cocktails.first())
     }.flatMapLatest { apiCocktailDetails ->
-        cocktailDao.favorites()
+        favoriteCocktailDao.favorites()
             .map { favoriteCocktails ->
                 apiCocktailDetails.toCocktailDetails(
                     isFavorite = favoriteCocktails.any { it.id == apiCocktailDetails.id.toInt() },
@@ -72,10 +96,10 @@ class MixscapeRepositoryImpl(
     override suspend fun addCocktailToFavorites(cocktailId: String) {
         val cocktailDetails = cocktailDetails(cocktailId).first()
         val posterUrl = cocktailDetails.imageUrl
-        cocktailDao.insertFavoriteCocktail(DbFavoriteCocktail(cocktailId.toInt(), posterUrl))
+        favoriteCocktailDao.insertFavoriteCocktail(DbFavoriteCocktail(cocktailId.toInt(), posterUrl))
     }
 
-    override suspend fun removeCocktailFromFavorites(cocktailId: String) = cocktailDao.deleteFavoriteCocktail(cocktailId.toInt())
+    override suspend fun removeCocktailFromFavorites(cocktailId: String) = favoriteCocktailDao.deleteFavoriteCocktail(cocktailId.toInt())
 
     override suspend fun toggleFavorite(cocktailId: String) {
         val favoriteCocktails = favorites.first()
@@ -84,5 +108,17 @@ class MixscapeRepositoryImpl(
         } else {
             removeCocktailFromFavorites(cocktailId)
         }
+    }
+
+    override fun myListCocktails(): Flow<List<Cocktail>> = myCocktails
+
+    override suspend fun addCocktailToMyList(cocktail: Cocktail) {
+        myCocktailDao.insertMyCocktail(DbMyCocktail(cocktail.id, cocktail.name, cocktail.ingredients, cocktail.preparationInstructions, cocktail.imageUrl))
+    }
+
+    override suspend fun removeCocktailFromMyList(cocktailId: String) = myCocktailDao.deleteMyCocktail(cocktailId.toInt())
+
+    override suspend fun updateMyCocktail(cocktail: Cocktail) {
+        myCocktailDao.updateMyCocktail(DbMyCocktail(cocktail.id, cocktail.name, cocktail.ingredients, cocktail.preparationInstructions, cocktail.imageUrl))
     }
 }

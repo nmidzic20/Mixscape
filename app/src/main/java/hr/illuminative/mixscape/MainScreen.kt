@@ -43,6 +43,8 @@ import hr.illuminative.mixscape.ui.composables.TopAppBarLogoTitle
 import hr.illuminative.mixscape.ui.favorites.FavoritesRoute
 import hr.illuminative.mixscape.ui.favorites.FavoritesViewModel
 import hr.illuminative.mixscape.ui.home.HomeRoute
+import hr.illuminative.mixscape.ui.mylist.MyListRoute
+import hr.illuminative.mixscape.ui.mylist.MyListViewModel
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
