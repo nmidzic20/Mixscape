@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class DbMyCocktail(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "ingredients") val ingredients: List<String>,
+    @ColumnInfo(name = "ingredients") val ingredients: String,
     @ColumnInfo(name = "preparationInstructions") val preparationInstructions: String,
     @ColumnInfo(name = "imageUrl") val imageUrl: String,
 )

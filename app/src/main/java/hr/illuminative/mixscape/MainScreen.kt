@@ -4,9 +4,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -39,12 +41,14 @@ import hr.illuminative.mixscape.navigation.CocktailDetailDestination
 import hr.illuminative.mixscape.navigation.NavigationItem
 import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsRoute
 import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsViewModel
+import hr.illuminative.mixscape.ui.composables.CocktailDialog
 import hr.illuminative.mixscape.ui.composables.TopAppBarLogoTitle
 import hr.illuminative.mixscape.ui.favorites.FavoritesRoute
 import hr.illuminative.mixscape.ui.favorites.FavoritesViewModel
 import hr.illuminative.mixscape.ui.home.HomeRoute
 import hr.illuminative.mixscape.ui.mylist.MyListRoute
 import hr.illuminative.mixscape.ui.mylist.MyListViewModel
+import hr.illuminative.mixscape.ui.theme.spacing
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -68,6 +72,20 @@ fun MainScreen() {
     }
     val showBackIcon = !showBottomBar
 
+    val showFloatingActionButton by remember {
+        derivedStateOf {
+            when (navBackStackEntry?.destination?.route) {
+                NavigationItem.MyListDestination.route -> {
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+    }
+    val myListViewModel = getViewModel<MyListViewModel>()
+
     Scaffold(
         topBar = {
             TopBar(
@@ -83,6 +101,7 @@ fun MainScreen() {
                     destinations = listOf(
                         NavigationItem.HomeDestination,
                         NavigationItem.FavoritesDestination,
+                        NavigationItem.MyListDestination,
                     ),
                     onNavigateToDestination = { destination ->
                         navController.navigate(destination.route) {
@@ -95,6 +114,20 @@ fun MainScreen() {
                     },
                     currentDestination = navBackStackEntry?.destination,
                 )
+            }
+        },
+        floatingActionButton = {
+            if (showFloatingActionButton) {
+                FloatingActionButton(
+                    onClick = {
+                        myListViewModel.onAddClick()
+                    },
+                    modifier = Modifier
+                        .padding(MaterialTheme.spacing.small)
+                        .padding(end = 16.dp, bottom = 16.dp),
+                ) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Cocktail")
+                }
             }
         },
     ) { padding ->
@@ -122,7 +155,7 @@ fun MainScreen() {
                             val cocktailRoute = CocktailDetailDestination.createNavigationRoute(cocktailId)
                             navController.navigate(cocktailRoute)
                         },
-                        viewModel = getViewModel<FavoritesViewModel>()
+                        viewModel = getViewModel<FavoritesViewModel>(),
                     )
                 }
                 composable(NavigationItem.MyListDestination.route) {
@@ -131,7 +164,7 @@ fun MainScreen() {
                             val cocktailRoute = CocktailDetailDestination.createNavigationRoute(cocktailId)
                             navController.navigate(cocktailRoute)
                         },
-                        viewModel = getViewModel<MyListViewModel>()
+                        viewModel = getViewModel<MyListViewModel>(),
                     )
                 }
                 composable(
@@ -147,6 +180,12 @@ fun MainScreen() {
                     )
                 }
             }
+
+            CocktailDialog(
+                isVisible = myListViewModel.isAddCocktailDialogVisible.value,
+                onDismiss = { myListViewModel.onCancelAddCocktail() },
+                onSave = { cocktail -> myListViewModel.onSaveAddCocktail(cocktail) },
+            )
         }
     }
 }
@@ -177,7 +216,7 @@ private fun BackIcon(
         imageVector = Icons.Default.ArrowBack,
         stringResource(R.string.back),
         modifier = modifier.clickable { onBackClick() },
-        tint = Color.White
+        tint = Color.White,
     )
 }
 

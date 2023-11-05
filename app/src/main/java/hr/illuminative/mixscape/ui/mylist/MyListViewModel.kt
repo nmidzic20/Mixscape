@@ -1,8 +1,11 @@
 package hr.illuminative.mixscape.ui.mylist
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.illuminative.mixscape.data.repository.MixscapeRepository
+import hr.illuminative.mixscape.model.Cocktail
 import hr.illuminative.mixscape.ui.favorites.FavoritesViewState
 import hr.illuminative.mixscape.ui.favorites.mapper.FavoritesMapper
 import hr.illuminative.mixscape.ui.mylist.mapper.MyListMapper
@@ -33,10 +36,25 @@ class MyListViewModel(
         viewModelScope.launch { mixscapeRepository.toggleFavorite(cocktailId.toString()) }
     }
 
-    fun onAddClick(cocktailId: Int) {
+    val isAddCocktailDialogVisible = mutableStateOf(false)
+
+    fun onAddClick() {
+        isAddCocktailDialogVisible.value = true
+        Log.i("ADD", isAddCocktailDialogVisible.value.toString())
     }
 
-    fun onUpdateClick(cocktailId: Int) {
+    fun onCancelAddCocktail() {
+        isAddCocktailDialogVisible.value = false
+    }
+
+    fun onSaveAddCocktail(cocktail: Cocktail) {
+        // Save cocktail
+        viewModelScope.launch { mixscapeRepository.addCocktailToMyList(cocktail) }
+
+        isAddCocktailDialogVisible.value = false
+    }
+
+    fun onUpdateClick(cocktail: Cocktail) {
     }
 
     fun onDeleteClick(cocktailId: Int) {

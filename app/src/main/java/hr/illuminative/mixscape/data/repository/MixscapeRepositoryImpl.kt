@@ -52,7 +52,7 @@ class MixscapeRepositoryImpl(
                         imageUrl = dbMyCocktail.imageUrl,
                         name = dbMyCocktail.name,
                         preparationInstructions = dbMyCocktail.preparationInstructions,
-                        ingredients = dbMyCocktail.ingredients,
+                        ingredients = listOf(dbMyCocktail.ingredients),
                         isFavorite = favoriteCocktails.any { it.id == dbMyCocktail.id },
                     )
                 }
@@ -113,12 +113,12 @@ class MixscapeRepositoryImpl(
     override fun myListCocktails(): Flow<List<Cocktail>> = myCocktails
 
     override suspend fun addCocktailToMyList(cocktail: Cocktail) {
-        myCocktailDao.insertMyCocktail(DbMyCocktail(cocktail.id, cocktail.name, cocktail.ingredients, cocktail.preparationInstructions, cocktail.imageUrl))
+        myCocktailDao.insertMyCocktail(DbMyCocktail(cocktail.id, cocktail.name, cocktail.ingredients.first(), cocktail.preparationInstructions, cocktail.imageUrl))
     }
 
     override suspend fun removeCocktailFromMyList(cocktailId: String) = myCocktailDao.deleteMyCocktail(cocktailId.toInt())
 
     override suspend fun updateMyCocktail(cocktail: Cocktail) {
-        myCocktailDao.updateMyCocktail(DbMyCocktail(cocktail.id, cocktail.name, cocktail.ingredients, cocktail.preparationInstructions, cocktail.imageUrl))
+        myCocktailDao.updateMyCocktail(DbMyCocktail(cocktail.id, cocktail.name, cocktail.ingredients.first(), cocktail.preparationInstructions, cocktail.imageUrl))
     }
 }

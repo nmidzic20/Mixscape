@@ -21,6 +21,7 @@ val dataModule = module {
         MixscapeRepositoryImpl(
             cocktailService = get(),
             favoriteCocktailDao = get(),
+            myCocktailDao = get(),
             bgDispatcher = Dispatchers.IO,
         )
     }
