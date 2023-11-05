@@ -224,12 +224,16 @@ fun Ingredient(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
+                    // If less than maximum number of items in row, prevent the spare items
+                    // from filling the entire row
+                    val totalItems = chunkedItems.size
+                    val infoItemModifier = if (totalItems == 3) Modifier.weight(1f) else Modifier
+
                     for ((index, info) in chunkedItems.withIndex()) {
                         InfoItem(
                             info,
                             index,
-                            Modifier
-                                .weight(1f)
+                            infoItemModifier
                                 .padding(MaterialTheme.spacing.small),
                         )
                     }
