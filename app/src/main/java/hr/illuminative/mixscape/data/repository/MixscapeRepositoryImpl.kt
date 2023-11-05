@@ -111,7 +111,8 @@ class MixscapeRepositoryImpl(
 
     override suspend fun addCocktailToFavorites(cocktailId: String) {
         val cocktailDetails = cocktailDetails(cocktailId).first()
-        val myCocktailDetails = myCocktailDetails(cocktailId).first()
+        lateinit var myCocktailDetails: Cocktail
+        if (cocktailDetails == null) myCocktailDetails = myCocktailDetails(cocktailId).first()
         val posterUrl = cocktailDetails?.imageUrl ?: myCocktailDetails?.imageUrl ?: ""
         favoriteCocktailDao.insertFavoriteCocktail(DbFavoriteCocktail(cocktailId.toInt(), posterUrl))
     }
