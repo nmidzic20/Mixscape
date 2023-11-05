@@ -11,4 +11,5 @@
     <string name="glass_type">Glass type</string>
     <string name="alcoholic">Alcoholic!</string>
     <string name="non_alcoholic">Non-alcoholic</string>
+    <string name="my_list">My List</string>
 </resources>

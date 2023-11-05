@@ -1,8 +1,8 @@
-package hr.illuminative.mixscape.ui.cocktail_details.di // ktlint-disable package-name
+package hr.illuminative.mixscape.ui.cocktaildetails.di // ktlint-disable package-name
 
-import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsViewModel
-import hr.illuminative.mixscape.ui.cocktail_details.mapper.CocktailDetailsMapper
-import hr.illuminative.mixscape.ui.cocktail_details.mapper.CocktailDetailsMapperImpl
+import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsViewModel
+import hr.illuminative.mixscape.ui.cocktaildetails.mapper.CocktailDetailsMapper
+import hr.illuminative.mixscape.ui.cocktaildetails.mapper.CocktailDetailsMapperImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

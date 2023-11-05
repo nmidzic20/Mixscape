@@ -1,7 +1,7 @@
-package hr.illuminative.mixscape.ui.cocktail_details.mapper
+package hr.illuminative.mixscape.ui.cocktaildetails.mapper
 
 import hr.illuminative.mixscape.model.CocktailDetails
-import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsViewState
+import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsViewState
 
 class CocktailDetailsMapperImpl : CocktailDetailsMapper {
     override fun toCocktailDetailsViewState(cocktailDetails: CocktailDetails): CocktailDetailsViewState {

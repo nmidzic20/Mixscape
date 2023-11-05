@@ -1,4 +1,4 @@
-package hr.illuminative.mixscape.ui.cocktail_details // ktlint-disable package-name
+package hr.illuminative.mixscape.ui.cocktaildetails // ktlint-disable package-name
 
 data class CocktailDetailsViewState(
     val id: Int,

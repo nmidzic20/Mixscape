@@ -37,11 +37,10 @@ import androidx.navigation.navArgument
 import hr.illuminative.mixscape.navigation.COCKTAIL_ID_KEY
 import hr.illuminative.mixscape.navigation.CocktailDetailDestination
 import hr.illuminative.mixscape.navigation.NavigationItem
-import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsRoute
-import hr.illuminative.mixscape.ui.cocktail_details.CocktailDetailsViewModel
+import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsRoute
+import hr.illuminative.mixscape.ui.cocktaildetails.CocktailDetailsViewModel
 import hr.illuminative.mixscape.ui.composables.TopAppBarLogoTitle
 import hr.illuminative.mixscape.ui.favorites.FavoritesRoute
-import hr.illuminative.mixscape.ui.favorites.FavoritesScreen
 import hr.illuminative.mixscape.ui.favorites.FavoritesViewModel
 import hr.illuminative.mixscape.ui.home.HomeRoute
 import org.koin.androidx.compose.getViewModel
@@ -122,6 +121,15 @@ fun MainScreen() {
                             navController.navigate(cocktailRoute)
                         },
                         viewModel = getViewModel<FavoritesViewModel>()
+                    )
+                }
+                composable(NavigationItem.MyListDestination.route) {
+                    MyListRoute(
+                        onNavigateToCocktailDetails = { cocktailId ->
+                            val cocktailRoute = CocktailDetailDestination.createNavigationRoute(cocktailId)
+                            navController.navigate(cocktailRoute)
+                        },
+                        viewModel = getViewModel<MyListViewModel>()
                     )
                 }
                 composable(

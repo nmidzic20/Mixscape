@@ -1,9 +1,9 @@
-package hr.illuminative.mixscape.ui.cocktail_details
+package hr.illuminative.mixscape.ui.cocktaildetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.illuminative.mixscape.data.repository.MixscapeRepository
-import hr.illuminative.mixscape.ui.cocktail_details.mapper.CocktailDetailsMapper
+import hr.illuminative.mixscape.ui.cocktaildetails.mapper.CocktailDetailsMapper
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

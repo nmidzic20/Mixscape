@@ -1,4 +1,4 @@
-package hr.illuminative.mixscape.ui.cocktail_details // ktlint-disable package-name
+package hr.illuminative.mixscape.ui.cocktaildetails // ktlint-disable package-name
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -28,7 +27,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -36,8 +34,6 @@ import hr.illuminative.mixscape.R
 import hr.illuminative.mixscape.ui.composables.FavoriteButton
 import hr.illuminative.mixscape.ui.composables.InfoItem
 import hr.illuminative.mixscape.ui.theme.spacing
-import org.koin.androidx.compose.getViewModel
-import org.koin.core.parameter.parametersOf
 
 @Composable
 fun CocktailDetailsRoute(
