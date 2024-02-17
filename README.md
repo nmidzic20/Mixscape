@@ -1,5 +1,7 @@
 Android mobile app in Kotlin, created for 48-hour individual hackathon for Illuminative workshop at Faculty of Electrical Engineering and Computing (FER), won the first place.
 
+Created in MVVM architecture using Compose, Retrofit, Room, Koin, Coroutines, CameraX.
+
 [Certificate for the best solution](https://www.dropbox.com/scl/fi/dr9txm9x5rd9qbgy3jo0u/EESTEC_Illuminative.pdf?rlkey=h1dc91atn9wre9qsbidczzp3i&dl=0)
 
 # Task Description
