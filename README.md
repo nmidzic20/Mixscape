@@ -25,22 +25,22 @@ should have some basic functionalities:
 
 2. Preview of details info about every cocktail:
    
-   The cocktail name, image, a list of ingredients, and preparation
+   - The cocktail name, image, a list of ingredients, and preparation
 instructions.
 
 3. Mark a cocktail as favourite
  
-   There should be a favourites screen implementation where you
+   - There should be a favourites screen implementation where you
 can find all your favourite cocktails and open their details info.
 
 4. Create cocktails and store them to a local DB:
 
-   You can create your own cocktails and add details about them.
+   - You can create your own cocktails and add details about them.
 
-   The saved cocktails should appear in a My List screen implemenation
+   - The saved cocktails should appear in a My List screen implemenation
 variant (you can also favourite them). 
 
-   The cocktail picture can be captured
+   - The cocktail picture can be captured
 with camera or uploaded from the gallery.
 
 5. Update cocktail details
