@@ -1,8 +1,8 @@
 Android mobile app in Kotlin, created for 48-hour individual hackathon for Illuminative workshop at Faculty of Electrical Engineering and Computing (FER), won the first place.
 
-# Task
+# Task Description
 
-1.1. Task definition
+## Task definition
 
 College life can be a whirlwind sometimes, balancing both studies and social life.
 What's better than relaxing after a week full of
@@ -13,7 +13,7 @@ that helps you mix up tasty drinks on a student budget.
 Your task is to create a Cocktail receipe book app.
 Let's shake things up together!
 
-General requierements
+## General requierements
 
 We want you to be as creative as possible but your app
 should have some basic functionalities:
