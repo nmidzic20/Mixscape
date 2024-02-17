@@ -12,7 +12,7 @@ assignments and classes with a great cocktail shared
 with your friends?
 Imagine having a fun, easy-to-use app on your phone
 that helps you mix up tasty drinks on a student budget.
-Your task is to create a Cocktail receipe book app.
+Your task is to create a Cocktail recipe book app.
 Let's shake things up together!
 
 ## General requierements
