@@ -47,7 +47,7 @@ with camera or uploaded from the gallery.
    
 6. Delete cocktails from My list
    
-Note: Don't worry if you dont manage to implement all of the
+Note: Don't worry if you don't manage to implement all of the
 requirements, relax and have fun!
 
 ## Implementation technology
